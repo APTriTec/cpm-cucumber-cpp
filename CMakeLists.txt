@@ -90,8 +90,14 @@ find_package(Boost 1.51 COMPONENTS thread system regex date_time REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CUKE_INCLUDE_DIR})
 
+if (WIN32 AND CMAKE_COMPILER_IS_GNUCXX)
+  set(WINSOCK "-lws2_32")
+endif()
+
 add_library(${CPM_LIB_TARGET_NAME} STATIC ${CUKE_SOURCES} ${CUCUMBER_CPP_DIR}/src/main.cpp)
-target_link_libraries(${CPM_LIB_TARGET_NAME} ${CPM_LIBRARIES} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_REGEX_LIBRARY} ${Boost_DATE_TIME_LIBRARY})
+target_link_libraries(${CPM_LIB_TARGET_NAME} ${CPM_LIBRARIES}
+  ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_REGEX_LIBRARY}
+  ${Boost_DATE_TIME_LIBRARY} ${WINSOCK})
 
 CPM_ExportAdditionalIncludeDir(${CUCUMBER_CPP_DIR}/include)
 CPM_ExportAdditionalIncludeDir(${Boost_INCLUDE_DIRS})
