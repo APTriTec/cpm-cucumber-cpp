@@ -31,7 +31,7 @@ endif()
 
 CPM_AddModule("google-test"
   GIT_REPOSITORY "https://github.com/APTriTec/cpm-google-test"
-  GIT_TAG feature/FMN_use_new_repository
+  GIT_TAG origin/master
   EXPORT_MODULE true)
 
 # All externals *must* define this.
