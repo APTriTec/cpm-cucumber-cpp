@@ -30,8 +30,8 @@ endif()
 
 
 CPM_AddModule("google-test"
-  GIT_REPOSITORY "https://github.com/iauns/cpm-google-test"
-  GIT_TAG 1.0.2
+  GIT_REPOSITORY "https://github.com/APTriTec/cpm-google-test"
+  GIT_TAG feature/FMN_use_new_repository
   EXPORT_MODULE true)
 
 # All externals *must* define this.
@@ -41,7 +41,7 @@ CPM_InitModule(${CPM_MODULE_NAME})
 
 
 #------------------------------------------------------------------------------
-# cucumber-cpp 
+# cucumber-cpp
 #------------------------------------------------------------------------------
 # cucumber-cpp as a subdirectory so that it can capture your compiler flags
 set(CUCUMBER_CPP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/cucumber_cpp)
@@ -54,7 +54,7 @@ CPM_EnsureRepoIsCurrent(
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Weffc++")
-    # TODO: A better fix should handle ld's --as-needed flag 
+    # TODO: A better fix should handle ld's --as-needed flag
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Xlinker '--no-as-needed'")
 elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNOMINMAX") # exclude M$ min/max macros
@@ -101,5 +101,3 @@ target_link_libraries(${CPM_LIB_TARGET_NAME} ${CPM_LIBRARIES}
 
 CPM_ExportAdditionalIncludeDir(${CUCUMBER_CPP_DIR}/include)
 CPM_ExportAdditionalIncludeDir(${Boost_INCLUDE_DIRS})
-
-
