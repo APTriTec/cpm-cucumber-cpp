@@ -48,7 +48,7 @@ set(CUCUMBER_CPP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/cucumber_cpp)
 CPM_EnsureRepoIsCurrent(
   TARGET_DIR ${CUCUMBER_CPP_DIR}
   GIT_REPOSITORY "https://github.com/cucumber/cucumber-cpp"
-  GIT_TAG v0.3
+  GIT_TAG v0.3.1
   USE_CACHING TRUE
   )
 
