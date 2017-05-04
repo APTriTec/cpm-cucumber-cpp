@@ -86,7 +86,10 @@ list(APPEND CUKE_SOURCES ${CUKE_HEADERS})
 
 set(Boost_USE_STATIC_LIBS ${MSVC})
 
-find_package(Boost 1.51 COMPONENTS thread system regex date_time REQUIRED)
+set(BOOST_ROOT "c:/local")
+set(BOOST_LIBRARYDIR "C:/local/boost_1_59_0/lib32-msvc-14.0")
+find_package(Boost 1.59 EXACT REQUIRED COMPONENTS thread system regex date_time program_options)
+
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CUKE_INCLUDE_DIR})
 
