@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
 #-----------------------------------------------------------------------
 # CPM configuration
@@ -18,7 +18,7 @@ else()
   endif()
   if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
     execute_process(
-      COMMAND "${GIT_EXECUTABLE}" clone https://github.com/iauns/cpm ${CPM_DIR}
+        COMMAND "${GIT_EXECUTABLE}" clone https://github.com/iauns/cpm ${CPM_DIR}
       RESULT_VARIABLE error_code
       OUTPUT_VARIABLE head_sha)
     if(error_code)
@@ -48,7 +48,7 @@ set(CUCUMBER_CPP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/cucumber_cpp)
 CPM_EnsureRepoIsCurrent(
   TARGET_DIR ${CUCUMBER_CPP_DIR}
   GIT_REPOSITORY "https://github.com/cucumber/cucumber-cpp"
-  GIT_TAG v0.3
+  GIT_TAG v0.4
   USE_CACHING TRUE
   )
 
@@ -87,8 +87,7 @@ list(APPEND CUKE_SOURCES ${CUKE_HEADERS})
 set(Boost_USE_STATIC_LIBS ${MSVC})
 
 set(BOOST_ROOT "c:/local")
-set(BOOST_LIBRARYDIR "C:/local/boost_1_59_0/lib32-msvc-14.0")
-find_package(Boost 1.59 EXACT REQUIRED COMPONENTS thread system regex date_time program_options)
+find_package(Boost 1.64 REQUIRED COMPONENTS thread system regex date_time program_options filesystem)
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CUKE_INCLUDE_DIR})
@@ -98,9 +97,7 @@ if (WIN32 AND CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 add_library(${CPM_LIB_TARGET_NAME} STATIC ${CUKE_SOURCES} ${CUCUMBER_CPP_DIR}/src/main.cpp)
-target_link_libraries(${CPM_LIB_TARGET_NAME} ${CPM_LIBRARIES}
-  ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_REGEX_LIBRARY}
-  ${Boost_DATE_TIME_LIBRARY} ${WINSOCK})
+target_link_libraries(${CPM_LIB_TARGET_NAME} ${CPM_LIBRARIES} Boost::thread Boost::system Boost::regex Boost::date_time Boost::program_options Boost::filesystem ${WINSOCK})
 
 CPM_ExportAdditionalIncludeDir(${CUCUMBER_CPP_DIR}/include)
 CPM_ExportAdditionalIncludeDir(${Boost_INCLUDE_DIRS})
